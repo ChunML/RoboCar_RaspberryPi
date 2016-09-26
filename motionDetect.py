@@ -132,14 +132,17 @@ while True:
 				w_track = rect[2]
 				h_track = rect[3]
 			
-				# text = 'Lost!'
+		# Update detected object's new position only if the criteria above was satisfied at least once
 		if (x_track != 0 and y_track != 0):
 			x_detect = x_track
 			y_detect = y_track
 			w_detect = w_track
 			h_detect = h_track
 		else:
+			# Otherwise, we lost the object
 			text = 'Lost!'
+
+		# When object is lost, (x_tract, y_track) is (0, 0) so we can draw a line to know the last position of the detected object
 		cv2.line(cur_frame, (x_detect, y_detect), (x_track, y_track), (0, 0, 255))
 		cv2.rectangle(cur_frame, (x_track, y_track), (x_track + w_track, y_track + h_track), (0, 255, 0), 0)
 		cv2.putText(cur_frame, text, (20, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
